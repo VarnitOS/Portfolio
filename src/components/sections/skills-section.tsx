@@ -129,28 +129,58 @@ export function SkillsSection() {
   };
 
   return (
-    <section id="skills" className="py-20 md:py-32 relative overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900 to-background/90">
+    <section id="skills" className="py-20 md:py-32 relative overflow-hidden bg-gradient-to-b from-gray-950 via-indigo-950/30 to-gray-950">
       {/* Background elements */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(40%_40%_at_60%_60%,var(--tw-gradient-stops))] from-accent/20 via-transparent to-transparent" />
-        {/* Animated background elements */}
+        {/* Main gradient overlay */}
+        <div className="absolute inset-0 bg-[radial-gradient(60%_60%_at_50%_30%,var(--tw-gradient-stops))] from-primary/40 via-purple-900/10 to-transparent" />
+        
+        {/* Grid pattern */}
+        <div className="absolute inset-0 opacity-[0.03] bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC40Ij48cGF0aCBkPSJNMzYgMzBoLTZ2NmgtNnYtNmgtNnYtNmg2di02aDZ2Nmg2eiIvPjwvZz48L2c+PC9zdmc+')]" />
+        
+        {/* Animated blobs and elements */}
         <div className="absolute top-0 left-0 w-full h-full">
-          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/20 rounded-full blur-3xl animate-blob" />
-          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-accent/20 rounded-full blur-3xl animate-blob" style={{ animationDelay: "2s" }} />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-secondary/20 rounded-full blur-3xl animate-blob" style={{ animationDelay: "4s" }} />
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/30 rounded-full blur-3xl animate-blob opacity-70" />
+          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-purple-600/30 rounded-full blur-3xl animate-blob opacity-70" style={{ animationDelay: "2s" }} />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-indigo-600/20 rounded-full blur-3xl animate-blob opacity-70" style={{ animationDelay: "4s" }} />
+          <div className="absolute top-3/4 left-1/3 w-56 h-56 bg-accent/30 rounded-full blur-3xl animate-blob opacity-70" style={{ animationDelay: "6s" }} />
+          <div className="absolute bottom-1/3 right-1/4 w-60 h-60 bg-blue-600/20 rounded-full blur-3xl animate-blob opacity-70" style={{ animationDelay: "8s" }} />
+        </div>
+        
+        {/* Animated particles */}
+        <div className="absolute inset-0 overflow-hidden">
+          {[...Array(6)].map((_, i) => (
+            <div 
+              key={i}
+              className="absolute rounded-full bg-white/10" 
+              style={{
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                width: `${Math.random() * 3 + 1}px`,
+                height: `${Math.random() * 3 + 1}px`,
+                opacity: Math.random() * 0.5,
+                animation: `float ${Math.random() * 8 + 4}s linear infinite`,
+                animationDelay: `${Math.random() * 5}s`
+              }}
+            />
+          ))}
         </div>
       </div>
       
-      <div className="container mx-auto px-6">
+      {/* Subtle moving light effect */}
+      <div className="absolute -top-40 -left-40 w-80 h-80 bg-gradient-to-br from-primary/20 to-accent/30 rounded-full blur-3xl opacity-30 animate-float" />
+      <div className="absolute -bottom-20 -right-20 w-60 h-60 bg-gradient-to-br from-accent/20 to-primary/30 rounded-full blur-3xl opacity-30" style={{ animation: 'float 8s ease-in-out infinite reverse' }} />
+      
+      <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-4xl mx-auto text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white filter drop-shadow-lg">
             <GradientText 
               text="My Skills" 
               className="inline-block hover:animate-glow transition-all duration-300"
               gradientClassName="bg-gradient-to-r from-accent via-primary to-secondary bg-clip-text text-transparent animate-gradient bg-[length:400%_100%]"
             />
           </h2>
-          <p className="text-gray-200 md:text-lg transition-colors duration-300">
+          <p className="text-gray-200 md:text-lg transition-colors duration-300 max-w-2xl mx-auto">
             A collection of technologies and skills I've acquired throughout my journey.
           </p>
         </div>
@@ -165,11 +195,15 @@ export function SkillsSection() {
               transition={{ delay: categoryIndex * 0.1, duration: 0.5 }}
               className="group relative"
             >
-              <div className="relative p-6 rounded-2xl bg-gray-900/80 backdrop-blur-sm border border-gray-700/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 h-full">
+              <div className="relative p-6 rounded-2xl backdrop-blur-sm border border-gray-700/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 h-full bg-gradient-to-br from-gray-900/90 to-gray-800/80">
+                {/* Card background effect */}
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500" />
+                <div className="absolute inset-0 rounded-2xl overflow-hidden">
+                  <div className="absolute top-0 left-0 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDMwaC02djZoLTZ2LTZoLTZ2LTZoNnYtNmg2djZoNnoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-30" />
+                </div>
                 
                 {/* Category pill badge */}
-                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 px-4 py-1 bg-gray-950 rounded-full border border-primary/40 shadow-lg shadow-primary/10">
+                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-gray-950 via-gray-900 to-gray-950 rounded-full border border-primary/40 shadow-lg shadow-primary/10">
                   <h3 className="text-sm font-semibold text-center text-white">
                     {category.name}
                   </h3>
@@ -182,7 +216,7 @@ export function SkillsSection() {
                       .map((skill, index) => (
                         <motion.div 
                           key={index} 
-                          className="p-2 rounded-lg hover:bg-gray-800/70 transition-all duration-200 flex items-center"
+                          className="p-2 rounded-lg hover:bg-white/10 transition-all duration-200 flex items-center"
                           whileHover={{ scale: 1.05 }}
                           transition={{ type: "spring", stiffness: 300, damping: 20 }}
                         >
