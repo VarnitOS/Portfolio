@@ -3,6 +3,7 @@
 import { GradientText } from "@/components/animation/gradient-text";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 // Skill data organized by category
 const skillCategories = [
@@ -114,35 +115,47 @@ export function SkillsSection() {
       transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
     },
   };
+  
+  // State for expanded categories
+  const [expandedCategories, setExpandedCategories] = useState<number[]>([]);
+  const skillDisplayLimit = 5;
+  
+  const toggleCategory = (categoryIndex: number) => {
+    setExpandedCategories(prev => 
+      prev.includes(categoryIndex)
+        ? prev.filter(i => i !== categoryIndex)
+        : [...prev, categoryIndex]
+    );
+  };
 
   return (
-    <section id="skills" className="py-20 md:py-32 relative overflow-hidden bg-gradient-to-b from-background to-background/90">
+    <section id="skills" className="py-20 md:py-32 relative overflow-hidden bg-gradient-to-b from-background via-gray-900/80 to-background/90">
       {/* Background elements */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(40%_40%_at_60%_60%,var(--tw-gradient-stops))] from-accent/5 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(40%_40%_at_60%_60%,var(--tw-gradient-stops))] from-accent/10 via-transparent to-transparent" />
         {/* New animated background elements */}
         <div className="absolute top-0 left-0 w-full h-full">
-          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-blob" />
-          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-accent/5 rounded-full blur-3xl animate-blob" style={{ animationDelay: "2s" }} />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-secondary/5 rounded-full blur-3xl animate-blob" style={{ animationDelay: "4s" }} />
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-blob" />
+          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-accent/10 rounded-full blur-3xl animate-blob" style={{ animationDelay: "2s" }} />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-secondary/10 rounded-full blur-3xl animate-blob" style={{ animationDelay: "4s" }} />
         </div>
       </div>
       
       <div className="container mx-auto px-6">
         <div className="max-w-4xl mx-auto text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
             <GradientText 
               text="My Skills" 
               className="inline-block hover:animate-glow transition-all duration-300"
               gradientClassName="bg-gradient-to-r from-accent via-primary to-secondary bg-clip-text text-transparent animate-gradient bg-[length:400%_100%]"
             />
           </h2>
-          <p className="text-foreground/70 md:text-lg hover:text-foreground transition-colors duration-300">
+          <p className="text-white md:text-lg transition-colors duration-300">
             A collection of technologies and skills I've acquired throughout my journey.
           </p>
         </div>
         
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {skillCategories.map((category, categoryIndex) => (
             <motion.div
               key={category.name}
@@ -152,15 +165,42 @@ export function SkillsSection() {
               transition={{ delay: categoryIndex * 0.1, duration: 0.5 }}
               className="group relative"
             >
-              <div className="relative p-6 rounded-2xl bg-card/50 backdrop-blur-sm border border-border/50 hover:border-primary/50 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/10">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="relative z-10">
-                  <div className="w-12 h-12 mb-4 mx-auto text-primary group-hover:animate-bounce">
-                    {/* Placeholder for category icon */}
-                  </div>
-                  <h3 className="text-lg font-semibold text-center mb-2 group-hover:text-primary transition-colors duration-300">
+              <div className="relative p-6 rounded-2xl bg-gray-800/40 backdrop-blur-sm border border-gray-700/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 h-full">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500" />
+                
+                {/* Category pill badge */}
+                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 px-4 py-1 bg-gray-900/90 rounded-full border border-primary/30 shadow-lg">
+                  <h3 className="text-sm font-semibold text-center text-white">
                     {category.name}
                   </h3>
+                </div>
+                
+                <div className="relative z-10 mt-4">
+                  <div className="grid grid-cols-2 gap-2 mt-2">
+                    {category.skills
+                      .slice(0, expandedCategories.includes(categoryIndex) ? category.skills.length : skillDisplayLimit)
+                      .map((skill, index) => (
+                        <motion.div 
+                          key={index} 
+                          className="p-2 rounded-lg hover:bg-white/10 transition-all duration-200 flex items-center"
+                          whileHover={{ scale: 1.05 }}
+                          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                        >
+                          <span className="text-sm text-white font-medium hover:text-primary transition-colors">{skill.name}</span>
+                        </motion.div>
+                      ))}
+                  </div>
+                  
+                  {category.skills.length > skillDisplayLimit && (
+                    <motion.button
+                      onClick={() => toggleCategory(categoryIndex)}
+                      className="text-xs font-semibold text-primary mt-4 hover:text-white hover:underline focus:outline-none w-full text-center px-3 py-2 rounded-lg hover:bg-primary/20 transition-all duration-200"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      {expandedCategories.includes(categoryIndex) ? "Show less ↑" : `Show all ${category.skills.length} skills ↓`}
+                    </motion.button>
+                  )}
                 </div>
               </div>
             </motion.div>
