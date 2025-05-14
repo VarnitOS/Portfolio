@@ -129,15 +129,15 @@ export function SkillsSection() {
   };
 
   return (
-    <section id="skills" className="py-20 md:py-32 relative overflow-hidden bg-gradient-to-b from-background via-gray-900/80 to-background/90">
+    <section id="skills" className="py-20 md:py-32 relative overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900 to-background/90">
       {/* Background elements */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(40%_40%_at_60%_60%,var(--tw-gradient-stops))] from-accent/10 via-transparent to-transparent" />
-        {/* New animated background elements */}
+        <div className="absolute inset-0 bg-[radial-gradient(40%_40%_at_60%_60%,var(--tw-gradient-stops))] from-accent/20 via-transparent to-transparent" />
+        {/* Animated background elements */}
         <div className="absolute top-0 left-0 w-full h-full">
-          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-blob" />
-          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-accent/10 rounded-full blur-3xl animate-blob" style={{ animationDelay: "2s" }} />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-secondary/10 rounded-full blur-3xl animate-blob" style={{ animationDelay: "4s" }} />
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/20 rounded-full blur-3xl animate-blob" />
+          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-accent/20 rounded-full blur-3xl animate-blob" style={{ animationDelay: "2s" }} />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-secondary/20 rounded-full blur-3xl animate-blob" style={{ animationDelay: "4s" }} />
         </div>
       </div>
       
@@ -150,7 +150,7 @@ export function SkillsSection() {
               gradientClassName="bg-gradient-to-r from-accent via-primary to-secondary bg-clip-text text-transparent animate-gradient bg-[length:400%_100%]"
             />
           </h2>
-          <p className="text-white md:text-lg transition-colors duration-300">
+          <p className="text-gray-200 md:text-lg transition-colors duration-300">
             A collection of technologies and skills I've acquired throughout my journey.
           </p>
         </div>
@@ -165,11 +165,11 @@ export function SkillsSection() {
               transition={{ delay: categoryIndex * 0.1, duration: 0.5 }}
               className="group relative"
             >
-              <div className="relative p-6 rounded-2xl bg-gray-800/40 backdrop-blur-sm border border-gray-700/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 h-full">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500" />
+              <div className="relative p-6 rounded-2xl bg-gray-900/80 backdrop-blur-sm border border-gray-700/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 h-full">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500" />
                 
                 {/* Category pill badge */}
-                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 px-4 py-1 bg-gray-900/90 rounded-full border border-primary/30 shadow-lg">
+                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 px-4 py-1 bg-gray-950 rounded-full border border-primary/40 shadow-lg shadow-primary/10">
                   <h3 className="text-sm font-semibold text-center text-white">
                     {category.name}
                   </h3>
@@ -182,11 +182,11 @@ export function SkillsSection() {
                       .map((skill, index) => (
                         <motion.div 
                           key={index} 
-                          className="p-2 rounded-lg hover:bg-white/10 transition-all duration-200 flex items-center"
+                          className="p-2 rounded-lg hover:bg-gray-800/70 transition-all duration-200 flex items-center"
                           whileHover={{ scale: 1.05 }}
                           transition={{ type: "spring", stiffness: 300, damping: 20 }}
                         >
-                          <span className="text-sm text-white font-medium hover:text-primary transition-colors">{skill.name}</span>
+                          <span className="text-sm text-gray-100 font-medium hover:text-primary transition-colors">{skill.name}</span>
                         </motion.div>
                       ))}
                   </div>
@@ -194,7 +194,7 @@ export function SkillsSection() {
                   {category.skills.length > skillDisplayLimit && (
                     <motion.button
                       onClick={() => toggleCategory(categoryIndex)}
-                      className="text-xs font-semibold text-primary mt-4 hover:text-white hover:underline focus:outline-none w-full text-center px-3 py-2 rounded-lg hover:bg-primary/20 transition-all duration-200"
+                      className="text-xs font-semibold text-primary mt-4 hover:text-white hover:underline focus:outline-none w-full text-center px-3 py-2 rounded-lg hover:bg-primary/30 transition-all duration-200"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -207,19 +207,19 @@ export function SkillsSection() {
           ))}
         </div>
 
-        {/* New floating elements */}
+        {/* Floating elements */}
         <div className="absolute top-20 right-20 hidden lg:block">
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            className="w-32 h-32 rounded-full border border-primary/20 backdrop-blur-sm"
+            className="w-32 h-32 rounded-full border border-primary/30 backdrop-blur-sm"
           />
         </div>
         <div className="absolute bottom-20 left-20 hidden lg:block">
           <motion.div
             animate={{ rotate: -360 }}
             transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-            className="w-24 h-24 rounded-full border border-accent/20 backdrop-blur-sm"
+            className="w-24 h-24 rounded-full border border-accent/30 backdrop-blur-sm"
           />
         </div>
       </div>
