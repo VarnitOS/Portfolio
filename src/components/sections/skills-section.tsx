@@ -3,7 +3,7 @@
 import { GradientText } from "@/components/animation/gradient-text";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // Skill data organized by category
 const skillCategories = [
@@ -120,6 +120,29 @@ export function SkillsSection() {
   const [expandedCategories, setExpandedCategories] = useState<number[]>([]);
   const skillDisplayLimit = 5;
   
+  // Add state for client-side particles
+  const [particles, setParticles] = useState<React.ReactNode[]>([]);
+  
+  // Add useEffect to generate particles only on client side
+  useEffect(() => {
+    const newParticles = [...Array(6)].map((_, i) => (
+      <div 
+        key={i}
+        className="absolute rounded-full bg-white/10" 
+        style={{
+          top: `${Math.random() * 100}%`,
+          left: `${Math.random() * 100}%`,
+          width: `${Math.random() * 3 + 1}px`,
+          height: `${Math.random() * 3 + 1}px`,
+          opacity: Math.random() * 0.5,
+          animation: `float ${Math.random() * 8 + 4}s linear infinite`,
+          animationDelay: `${Math.random() * 5}s`
+        }}
+      />
+    ));
+    setParticles(newParticles);
+  }, []);
+  
   const toggleCategory = (categoryIndex: number) => {
     setExpandedCategories(prev => 
       prev.includes(categoryIndex)
@@ -166,23 +189,9 @@ export function SkillsSection() {
           <div className="absolute bottom-1/3 right-1/4 w-60 h-60 bg-blue-600/20 rounded-full blur-3xl animate-blob opacity-70" style={{ animationDelay: "8s" }} />
         </div>
         
-        {/* Animated particles */}
+        {/* Animated particles - modified to use client-side only rendering */}
         <div className="absolute inset-0 overflow-hidden">
-          {[...Array(6)].map((_, i) => (
-            <div 
-              key={i}
-              className="absolute rounded-full bg-white/10" 
-              style={{
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                width: `${Math.random() * 3 + 1}px`,
-                height: `${Math.random() * 3 + 1}px`,
-                opacity: Math.random() * 0.5,
-                animation: `float ${Math.random() * 8 + 4}s linear infinite`,
-                animationDelay: `${Math.random() * 5}s`
-              }}
-            />
-          ))}
+          {particles}
         </div>
       </div>
       
