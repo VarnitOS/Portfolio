@@ -81,12 +81,6 @@ export function Footer() {
             <motion.p variants={itemVariants}>
               © {currentYear} Varnit Sahu. All rights reserved.
             </motion.p>
-            
-            <motion.p variants={itemVariants} className="mt-4 md:mt-0">
-              Made with 
-              <span className="px-1.5 text-red-500">❤</span>
-              in Waterloo, Canada
-            </motion.p>
           </div>
         </motion.div>
       </div>
