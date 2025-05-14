@@ -128,6 +128,25 @@ export function SkillsSection() {
     );
   };
 
+  const getCategoryDescription = (categoryName: string) => {
+    switch(categoryName) {
+      case "Languages":
+        return "Proficient in a diverse range of programming languages for systems, web, and data analysis";
+      case "Frameworks":
+        return "Experience with powerful frameworks that accelerate development and enhance performance";
+      case "Developer Tools":
+        return "Expertise with industry-standard tools for efficient development and deployment workflows";
+      case "Libraries & APIs":
+        return "Leveraging specialized libraries and APIs for data science, visualization, and integration";
+      case "Technologies":
+        return "Command of cutting-edge technologies spanning web, AI, and enterprise applications";
+      case "Certificates":
+        return "Industry-recognized credentials validating expertise in specialized domains";
+      default:
+        return "";
+    }
+  };
+
   return (
     <section id="skills" className="py-20 md:py-32 relative overflow-hidden bg-gradient-to-b from-gray-950 via-indigo-950/30 to-gray-950">
       {/* Background elements */}
@@ -175,13 +194,13 @@ export function SkillsSection() {
         <div className="max-w-4xl mx-auto text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white filter drop-shadow-lg">
             <GradientText 
-              text="My Skills" 
+              text="Technical Expertise" 
               className="inline-block hover:animate-glow transition-all duration-300"
               gradientClassName="bg-gradient-to-r from-accent via-primary to-secondary bg-clip-text text-transparent animate-gradient bg-[length:400%_100%]"
             />
           </h2>
-          <p className="text-gray-200 md:text-lg transition-colors duration-300 max-w-2xl mx-auto">
-            A collection of technologies and skills I've acquired throughout my journey.
+          <p className="text-gray-200 md:text-lg transition-colors duration-300 max-w-2xl mx-auto mb-6">
+            Leveraging cutting-edge technologies to build scalable, innovative solutions across multiple domains—from systems programming to AI and web development.
           </p>
         </div>
         
@@ -209,7 +228,11 @@ export function SkillsSection() {
                   </h3>
                 </div>
                 
+                {/* Add category description */}
                 <div className="relative z-10 mt-4">
+                  <p className="text-xs text-gray-300 mb-3 italic">
+                    {getCategoryDescription(category.name)}
+                  </p>
                   <div className="grid grid-cols-2 gap-2 mt-2">
                     {category.skills
                       .slice(0, expandedCategories.includes(categoryIndex) ? category.skills.length : skillDisplayLimit)
