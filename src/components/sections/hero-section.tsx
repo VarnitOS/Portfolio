@@ -120,9 +120,25 @@ export function HeroSection() {
             variants={itemVariants}
             className="text-lg md:text-xl text-foreground/80 max-w-2xl mb-8 hover:text-foreground transition-colors duration-300"
           >
-            Computer Science student at the University of Waterloo with expertise in C/C++, Python, 
-            and full-stack development. Passionate about building innovative software solutions.
+            Computer Science student at the University of Waterloo specializing in AI, machine learning, and scalable systems. 
+            Experienced in C++, Python, Go, and full-stack development with Next.js, Unreal Engine, and data pipelines.
           </motion.p>
+          
+          {/* Education & Contact Summary */}
+          <motion.div variants={itemVariants} className="flex flex-col space-y-2 mb-8">
+            <div className="flex items-center">
+              <span className="w-5 h-5 text-primary mr-2">🎓</span>
+              <span className="text-foreground/70">University of Waterloo, Computer Science (Honours, Co-op)</span>
+            </div>
+            <div className="flex items-center">
+              <span className="w-5 h-5 text-primary mr-2">✉️</span>
+              <span className="text-foreground/70">vsahu@uwaterloo.ca</span>
+            </div>
+            <div className="flex items-center">
+              <span className="w-5 h-5 text-primary mr-2">📱</span>
+              <span className="text-foreground/70">+1 (647) 404-9425</span>
+            </div>
+          </motion.div>
           
           {/* CTA Buttons with enhanced hover effects */}
           <motion.div variants={itemVariants} className="flex flex-wrap gap-4">
