@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface ProjectCardProps {
   title: string;
@@ -25,6 +25,7 @@ export function ProjectCard({
 }: ProjectCardProps) {
   const [hovered, setHovered] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [currentImageUrl, setCurrentImageUrl] = useState(imageUrl);
   
   // Card animation variants
   const cardVariants = {
@@ -46,9 +47,41 @@ export function ProjectCard({
     rest: { scale: 1, transition: { duration: 0.3 } }
   };
   
-  const handleImageError = () => {
-    setImageError(true);
+  // Multiple fallback options
+  const getFallbackImage = () => {
+    const seed = title.toLowerCase().replace(/\s+/g, '-');
+    
+    // Try different sources in case one fails
+    const fallbackOptions = [
+      `https://picsum.photos/seed/${seed}/800/600`,
+      `https://source.unsplash.com/800x600/?${seed.replace(/-/g, ',')}`,
+      `https://loremflickr.com/800/600/${seed.replace(/-/g, ',')}`,
+      // Default solid color as final fallback
+      null
+    ];
+    
+    // Find the first fallback that's different from the current failing URL
+    const nextFallback = fallbackOptions.find(url => url !== currentImageUrl);
+    return nextFallback;
   };
+  
+  const handleImageError = () => {
+    console.log(`Error loading image for project: ${title}`);
+    const nextImage = getFallbackImage();
+    
+    if (nextImage) {
+      setCurrentImageUrl(nextImage);
+    } else {
+      // If all image options failed, just mark as error and use color placeholder
+      setImageError(true);
+    }
+  };
+  
+  // Reset error state if imageUrl changes
+  useEffect(() => {
+    setCurrentImageUrl(imageUrl);
+    setImageError(false);
+  }, [imageUrl]);
   
   return (
     <motion.div
@@ -72,20 +105,19 @@ export function ProjectCard({
           className="w-full h-full relative"
         >
           {imageError ? (
-            <div className="w-full h-full bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center">
-              <span className="text-4xl font-bold text-primary/50">{title[0]}</span>
+            // Colored placeholder when all images fail
+            <div className="w-full h-full bg-primary/20 flex items-center justify-center">
+              <span className="text-2xl font-bold text-primary">{title.charAt(0)}</span>
             </div>
           ) : (
-            <>
-              <Image
-                src={imageUrl}
-                alt={`${title} project thumbnail`}
-                fill
-                className="object-cover"
-                onError={handleImageError}
-                priority
-              />
-            </>
+            <Image
+              src={currentImageUrl}
+              alt={`${title} project thumbnail`}
+              fill
+              className="object-cover"
+              onError={handleImageError}
+              priority
+            />
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
         </motion.div>

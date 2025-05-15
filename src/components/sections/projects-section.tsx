@@ -14,7 +14,7 @@ const projects = [
     title: "OneScroll",
     description: "A modern social media aggregator that unifies all your social feeds into one seamless scrolling experience. Stop app-hopping and start enjoying your content in one place.",
     tags: ["React Native", "TypeScript", "Supabase", "Expo", "Mobile Development"],
-    image: "/assets/projects/onescroll.jpg",
+    image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=800&h=600&auto=format&fit=crop",
     github: "https://github.com/VarnitOS/OneScroll",
     demo: "https://onescroll.demo.dev",
     features: [
@@ -29,7 +29,7 @@ const projects = [
     title: "AdOpt",
     description: "A sophisticated real-time bidding (RTB) optimization platform that uses game theory principles to optimize advertising campaigns and maximize ROI.",
     tags: ["Java", "Spring Boot", "Next.js", "TypeScript", "Game Theory"],
-    image: "/assets/projects/adopt.jpg",
+    image: "https://images.unsplash.com/photo-1533750516457-a7f992034fec?q=80&w=800&h=600&auto=format&fit=crop",
     github: "https://github.com/VarnitOS/AdOpt",
     demo: "https://adopt.demo.dev",
     features: [
@@ -44,7 +44,7 @@ const projects = [
     title: "FluxStonks",
     description: "A real-time stock market analysis and trading platform with advanced visualization and prediction capabilities.",
     tags: ["Python", "React", "TypeScript", "Machine Learning", "Data Visualization"],
-    image: "/assets/projects/fluxstonks.jpg",
+    image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=800&h=600&auto=format&fit=crop",
     github: "https://github.com/VarnitOS/FluxStonks",
     demo: "https://fluxstonks.demo.dev",
     features: [
@@ -59,7 +59,7 @@ const projects = [
     title: "NetVigil",
     description: "A comprehensive network monitoring and security tool that provides real-time insights into network performance and potential security threats.",
     tags: ["C++", "Python", "Network Security", "System Monitoring"],
-    image: "/assets/projects/netvigil.jpg",
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=800&h=600&auto=format&fit=crop",
     github: "https://github.com/VarnitOS/NetVigil",
     demo: "https://netvigil.demo.dev",
     features: [
@@ -74,7 +74,7 @@ const projects = [
     title: "DisasterFirstResponder",
     description: "An emergency response coordination platform designed to help first responders during natural disasters and crisis situations.",
     tags: ["React", "Node.js", "GIS", "Real-time Communication"],
-    image: "/assets/projects/disasterfirstresponder.jpg",
+    image: "https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=800&h=600&auto=format&fit=crop",
     github: "https://github.com/VarnitOS/DisasterFirstResponder",
     demo: "https://dfr.demo.dev",
     features: [
@@ -89,7 +89,7 @@ const projects = [
     title: "Joblity",
     description: "A job search and career mobility platform that helps users find opportunities aligned with their skills and career goals.",
     tags: ["Vue.js", "Express", "MongoDB", "Career Tech"],
-    image: "/assets/projects/joblity.jpg",
+    image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=800&h=600&auto=format&fit=crop",
     github: "https://github.com/VarnitOS/Joblity",
     demo: "https://joblity.demo.dev",
     features: [
@@ -104,7 +104,7 @@ const projects = [
     title: "Law-Der",
     description: "An AI-powered legal document analysis and recommendation system for legal professionals.",
     tags: ["Python", "NLP", "Machine Learning", "Legal Tech"],
-    image: "/assets/projects/lawder.jpg",
+    image: "https://images.unsplash.com/photo-1589994965851-a8f479c573a9?q=80&w=800&h=600&auto=format&fit=crop",
     github: "https://github.com/VarnitOS/Law-Der",
     demo: "https://lawder.demo.dev",
     features: [
@@ -119,7 +119,7 @@ const projects = [
     title: "MealPlanner",
     description: "A smart meal planning application that creates personalized meal plans based on dietary preferences, restrictions, and nutritional goals.",
     tags: ["React", "Firebase", "Nutrition API", "Health Tech"],
-    image: "/assets/projects/mealplanner.jpg",
+    image: "https://images.unsplash.com/photo-1594054725229-933f666f7618?q=80&w=800&h=600&auto=format&fit=crop",
     github: "https://github.com/VarnitOS/mealplanner",
     demo: "https://mealplanner.demo.dev",
     features: [
@@ -134,7 +134,7 @@ const projects = [
     title: "MNIST Classifier",
     description: "A deep learning model for handwritten digit recognition using the MNIST dataset, with interactive visualization of neural network operations.",
     tags: ["Python", "TensorFlow", "Deep Learning", "Computer Vision"],
-    image: "/assets/projects/mnist.jpg",
+    image: "https://images.unsplash.com/photo-1527474305487-b87b222841cc?q=80&w=800&h=600&auto=format&fit=crop",
     github: "https://github.com/VarnitOS/MNIST",
     demo: "https://mnist.demo.dev",
     features: [
@@ -149,7 +149,7 @@ const projects = [
     title: "TravelCompanion",
     description: "An all-in-one travel planning and companion app that helps with itinerary planning, booking, and real-time travel assistance.",
     tags: ["Flutter", "Firebase", "Maps API", "Travel Tech"],
-    image: "/assets/projects/travelcompanion.jpg",
+    image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=800&h=600&auto=format&fit=crop",
     github: "https://github.com/VarnitOS/TravelCompanion",
     demo: "https://travelcompanion.demo.dev",
     features: [
