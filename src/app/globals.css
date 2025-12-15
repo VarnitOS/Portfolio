@@ -4,7 +4,21 @@
 
 :root {
   color-scheme: dark;
-  background-color: #050505;
+  --bg-base: hsl(230, 20%, 6%);
+  --bg-light-x: 32%;
+  --bg-light-y: 24%;
+  --bg-light-strength: 0.14;
+  --pattern-enabled: 1;
+  --pattern-opacity: 0.08;
+  --pattern-glow-strength: 0.4;
+  --text-primary: hsl(0, 0%, 96%);
+  --text-secondary: hsl(0, 0%, 72%);
+  --text-muted: hsl(0, 0%, 55%);
+  --card-bg: hsl(230, 18%, 10%);
+  --card-border-opacity: 0.6;
+  --card-glow-strength: 0.35;
+  --footer-bg: hsl(230, 18%, 8%);
+  --footer-border-opacity: 0.3;
 }
 
 * {
@@ -19,8 +33,8 @@ body {
 }
 
 body {
-  background-color: #050505;
-  color: #e5e7eb;
+  background-color: var(--bg-base);
+  color: var(--text-primary);
   font-family: var(--font-geist-sans), ui-sans-serif, system-ui;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -29,14 +43,4 @@ body {
 a {
   color: inherit;
   text-decoration: none;
-}
-
-.noise-overlay {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.04) 1px, transparent 0);
-  background-size: 120px 120px;
-  opacity: 0.5;
-  mask-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.6), transparent 65%);
 }

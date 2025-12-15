@@ -16,10 +16,10 @@ const socialLinks = [
 export function Header() {
   return (
     <header
-      className="fixed inset-x-0 top-0 z-30 border-b border-white/10 bg-surface/95 backdrop-blur-sm"
+      className="fixed inset-x-0 top-0 z-30 bg-gradient-to-b from-[rgba(11,13,24,0.9)] via-[rgba(11,13,24,0.75)] to-transparent"
       data-layer="header"
     >
-      <div className="mx-auto grid max-w-6xl grid-cols-[auto_1fr_auto] items-start gap-8 px-6 py-4">
+      <div className="mx-auto grid max-w-6xl grid-cols-[auto_1fr_auto] items-start gap-8 px-6 py-5">
         <div
           className="flex flex-col gap-1"
           aria-label="Site identity"
@@ -27,20 +27,20 @@ export function Header() {
         >
           <Link
             href="/"
-            className="inline-flex items-baseline gap-2 rounded-sm px-2 py-1"
+            className="inline-flex items-baseline gap-3 rounded-sm px-2 py-1"
             data-signature
           >
-            <span className="text-2xl font-semibold italic tracking-tight text-white">
+            <span className="text-3xl font-['Brush_Script_MT',cursive] tracking-tight text-transparent bg-gradient-to-r from-[#ff9de4] via-[#ffd6ff] to-[#7cf5f5] drop-shadow-[0_0_10px_rgba(255,143,225,0.35)]">
               Varnit
             </span>
             <span
-              className="text-sm font-mono uppercase tracking-[0.18em] text-emerald-300"
+              className="text-sm font-mono uppercase tracking-[0.22em] text-[var(--text-primary)]"
               data-domain-text
             >
               .com
             </span>
           </Link>
-          <p className="text-xs font-mono uppercase tracking-[0.18em] text-gray-400">
+          <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-[var(--text-secondary)]">
             systems engineer / creative technologist
           </p>
         </div>
@@ -55,17 +55,22 @@ export function Header() {
               key={item.suit}
               type="button"
               data-suit={item.suit}
-              className="relative flex h-20 w-28 flex-col justify-between rounded-[6px] border border-white/12 bg-surface-muted/90 px-3 py-2 text-left shadow-[0_0_0_1px_rgba(255,255,255,0.04)]"
+              className="relative flex h-24 w-32 flex-col justify-between rounded-xl border border-white/20 bg-[var(--card-bg)]/95 px-4 py-3 text-left shadow-[0_8px_24px_rgba(0,0,0,0.35)] ring-1 ring-white/10"
             >
-              <span className="absolute inset-x-2 -top-[2px] h-[3px] bg-gradient-to-r from-white/14 via-transparent to-white/14" />
-              <span className="flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.14em] text-gray-300">
-                <span className="text-lg leading-none text-white">{item.symbol}</span>
-                <span className="text-[10px] text-gray-600">cli</span>
+              <span className="absolute inset-x-2 -top-[2px] h-[3px] bg-gradient-to-r from-[#ff9bf2]/45 via-transparent to-[#6bf0ff]/45" />
+              <span className="absolute inset-0 rounded-xl border border-white/10" />
+              <span className="flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--text-secondary)]">
+                <span className="text-lg leading-none text-[var(--text-primary)] drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]">
+                  {item.symbol}
+                </span>
+                <span className="text-[10px] text-[#7cf5f5]">cli</span>
               </span>
-              <span className="text-sm font-semibold text-white">{item.label}</span>
-              <span className="flex gap-1 text-[10px] font-mono uppercase tracking-[0.18em] text-emerald-300">
-                <span className="h-[1px] flex-1 bg-emerald-400/50" />
-                <span className="h-[1px] flex-1 bg-emerald-400/50" />
+              <span className="text-lg font-semibold text-[var(--text-primary)]">
+                {item.label}
+              </span>
+              <span className="flex gap-1 text-[10px] font-mono uppercase tracking-[0.2em] text-[#6bf0ff]">
+                <span className="h-[1px] flex-1 bg-[#6bf0ff]/50" />
+                <span className="h-[1px] flex-1 bg-[#6bf0ff]/50" />
               </span>
               <CornerDecor />
             </button>
@@ -83,9 +88,9 @@ export function Header() {
               href={link.href}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center gap-2 rounded-sm px-2 py-1 font-mono text-xs uppercase tracking-[0.16em] text-gray-300"
+              className="flex items-center gap-2 rounded-sm px-2 py-1 font-mono text-xs uppercase tracking-[0.18em] text-[var(--text-secondary)]"
             >
-              <span className="text-[10px] text-emerald-300">[]</span>
+              <span className="text-[10px] text-[#7cf5f5]">[ ]</span>
               {link.label}
             </a>
           ))}
