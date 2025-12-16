@@ -100,7 +100,7 @@ export default function BubbleMenu({
     'bubble-menu',
     useFixedPosition ? 'fixed' : 'relative',
     'flex items-center justify-center',
-    'gap-2 px-6',
+    'gap-2 px-2',
     'pointer-events-none',
     'z-[1001]',
     className
@@ -250,8 +250,8 @@ export default function BubbleMenu({
           <ul
             className={[
               'pill-list',
-              'list-none m-0 px-4',
-              'w-full max-w-[1600px] mx-auto',
+              'list-none m-0 px-2',
+              'w-auto max-w-[900px] mx-auto',
               'flex flex-nowrap items-center justify-center',
               'gap-2',
               'pointer-events-auto'

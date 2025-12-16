@@ -40,22 +40,22 @@ const SOCIAL = [
 export function Header() {
   return (
     <header className="sticky top-0 z-30 w-screen bg-transparent" data-layer="header">
-      <div className="flex w-full items-center justify-between gap-6 px-6 py-4">
-        <div className="flex items-end gap-3 leading-tight" data-signature-container>
+      <div className="flex w-full items-center justify-between gap-4 px-6 py-4">
+        <div className="flex flex-none items-end gap-2 leading-tight" data-signature-container>
           <Link href="/" className="inline-flex items-baseline gap-2" data-signature>
             <span className="text-6xl sm:text-7xl font-['Brush_Script_MT',cursive] tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#f8fbff] via-[#eef3ff] to-[#e4faff]">
-              Varnit
-            </span>
-            <span className="text-4xl sm:text-5xl font-['Brush_Script_MT',cursive] tracking-tight text-[#eef2f6]">
-              Sahu
+              Varnit Sahu
             </span>
             <span className="align-bottom ml-1" data-domain-text>
               <FuzzyText
-                fontSize={22}
+                fontSize={29}
                 fontWeight={800}
                 color="#f7fbff"
-                enableHover={false}
-                baseIntensity={0.12}
+                enableHover={true}
+                baseIntensity={0.18}
+                hoverIntensity={0.5}
+                fontFamily="signature"
+                
               >
                 .com
               </FuzzyText>
@@ -63,7 +63,7 @@ export function Header() {
           </Link>
         </div>
 
-        <div className="flex flex-1 items-center justify-center min-w-0">
+        <div className="flex flex-1 items-center justify-center min-w-[420px] max-w-[70vw] px-2">
           <BubbleMenu
             menuBg="rgba(23,25,32,0.9)"
             menuContentColor="#e6e9ee"
