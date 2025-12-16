@@ -6,7 +6,7 @@ import { BackgroundLayers } from "@/modules/layout/BackgroundLayers";
 export default function Home() {
   return (
     <div
-      className="relative flex h-screen flex-col overflow-hidden bg-[var(--bg-base)] text-[var(--text-primary)]"
+      className="relative flex h-screen w-screen flex-col overflow-hidden bg-[var(--bg-base)] text-[var(--text-primary)]"
       data-root-viewport
     >
       <BackgroundLayers />

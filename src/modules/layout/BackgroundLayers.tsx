@@ -5,7 +5,7 @@ import LetterGlitch from "@/components/LetterGlitch";
 export function BackgroundLayers() {
   return (
     <div
-      className="pointer-events-none absolute inset-0 z-0"
+      className="pointer-events-none fixed inset-0 z-0 w-screen h-screen"
       style={{
         opacity: 0.18,              // 🔥 MAIN CONTROL
         mixBlendMode: "screen",     // or "soft-light"
@@ -14,7 +14,7 @@ export function BackgroundLayers() {
     >
       <LetterGlitch
         glitchColors={["#06141f", "#00ff9c", "#ff2a6d"]}
-        centerVignette={false}
+        centerVignette={true}
         outerVignette={true}
         glitchSpeed={50}
         smooth={true}
