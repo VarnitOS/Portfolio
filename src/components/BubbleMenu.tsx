@@ -67,11 +67,9 @@ const DEFAULT_ITEMS: MenuItem[] = [
 ];
 
 export default function BubbleMenu({
-  logo,
   onMenuClick,
   className,
   style,
-  hideLogo = false,
   menuBg = '#fff',
   menuContentColor = '#111',
   useFixedPosition = false,
@@ -100,11 +98,9 @@ export default function BubbleMenu({
 
   const containerClassName = [
     'bubble-menu',
-    useFixedPosition ? 'fixed' : 'absolute',
-    'left-0 right-0 top-8',
-    'flex items-center',
-    hideLogo ? 'justify-center' : 'justify-between',
-    'gap-4 px-8',
+    useFixedPosition ? 'fixed' : 'relative',
+    'flex items-center justify-center',
+    'gap-2 px-6',
     'pointer-events-none',
     'z-[1001]',
     className
@@ -191,12 +187,6 @@ export default function BubbleMenu({
           transition: transform 0.3s ease, opacity 0.3s ease;
           transform-origin: center;
         }
-        .bubble-menu-items .pill-list .pill-col:nth-child(4):nth-last-child(2) {
-          margin-left: calc(100% / 6);
-        }
-        .bubble-menu-items .pill-list .pill-col:nth-child(4):last-child {
-          margin-left: calc(100% / 3);
-        }
         @media (min-width: 900px) {
           .bubble-menu-items .pill-link {
             transform: rotate(var(--item-rot));
@@ -216,10 +206,13 @@ export default function BubbleMenu({
             align-items: flex-start;
           }
           .bubble-menu-items .pill-list {
-            row-gap: 16px;
+            row-gap: 12px;
+            flex-wrap: nowrap;
+            justify-content: center;
+            gap: 8px;
           }
           .bubble-menu-items .pill-list .pill-col {
-            flex: 0 0 100% !important;
+            flex: 0 0 auto !important;
             margin-left: 0 !important;
             overflow: visible;
           }
@@ -239,43 +232,7 @@ export default function BubbleMenu({
         }
       `}</style>
 
-      <nav className={containerClassName} style={style} aria-label="Main navigation">
-        {!hideLogo && (
-          <div
-            className={[
-              'bubble logo-bubble',
-              'inline-flex items-center justify-center',
-              'rounded-full',
-              'bg-white',
-              'shadow-[0_4px_16px_rgba(0,0,0,0.12)]',
-              'pointer-events-auto',
-              'h-12 md:h-14',
-              'px-4 md:px-8',
-              'gap-2',
-              'will-change-transform'
-            ].join(' ')}
-            aria-label="Logo"
-            style={{
-              background: menuBg,
-              minHeight: '48px',
-              borderRadius: '9999px'
-            }}
-          >
-            <span
-              className={['logo-content', 'inline-flex items-center justify-center', 'w-[120px] h-full'].join(' ')}
-              style={
-                {
-                  ['--logo-max-height']: '60%',
-                  ['--logo-max-width']: '100%'
-                } as CSSProperties
-              }
-            >
-              {logo}
-            </span>
-          </div>
-        )}
-
-      </nav>
+      <nav className={containerClassName} style={style} aria-label="Main navigation" />
 
       {showOverlay && (
         <div
@@ -293,10 +250,10 @@ export default function BubbleMenu({
           <ul
             className={[
               'pill-list',
-              'list-none m-0 px-6',
+              'list-none m-0 px-4',
               'w-full max-w-[1600px] mx-auto',
-              'flex flex-wrap',
-              'gap-x-0 gap-y-1',
+              'flex flex-nowrap items-center justify-center',
+              'gap-2',
               'pointer-events-auto'
             ].join(' ')}
             role="menu"
@@ -309,7 +266,7 @@ export default function BubbleMenu({
                 className={[
                   'pill-col',
                   'flex justify-center items-stretch',
-                  '[flex:0_0_calc(100%/3)]',
+                  'flex-none',
                   'box-border'
                 ].join(' ')}
               >
@@ -340,13 +297,15 @@ export default function BubbleMenu({
                       ['--hover-color']: item.hoverStyles?.textColor || menuContentColor,
                       background: 'var(--pill-bg)',
                       color: 'var(--pill-color)',
-                      minHeight: 'var(--pill-min-h, 160px)',
-                      padding: 'clamp(1.5rem, 3vw, 8rem) 0',
-                      fontSize: 'clamp(1.5rem, 4vw, 4rem)',
+                      minHeight: '64px',
+                      minWidth: '140px',
+                      maxWidth: '180px',
+                      padding: '0.75rem 0',
+                      fontSize: 'clamp(1.2rem, 2vw, 2.2rem)',
                       fontWeight: 400,
-                      lineHeight: 0,
-                      willChange: 'transform',
-                      height: 10
+                      lineHeight: 1,
+                      textAlign: 'center',
+                      willChange: 'transform'
                     } as CSSProperties
                   }
                   ref={el => {

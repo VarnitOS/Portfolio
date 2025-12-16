@@ -5,58 +5,53 @@ import FuzzyText from "@/components/FuzzyText";
 import Link from "next/link";
 
 type SuitNav = {
-  suit: "spade" | "heart" | "diamond" | "club";
   label: string;
   color: string;
 };
 
 const SUIT_NAV: SuitNav[] = [
-  { suit: "spade", label: "Projects", color: "#7dd3fc" }, // cool cyan
-  { suit: "heart", label: "Blog", color: "#f472b6" }, // warm pink/red
-  { suit: "diamond", label: "Trading", color: "#5eead4" }, // electric teal
-  { suit: "club", label: "Research", color: "#86efac" }, // soft mint
+  { label: "Projects", color: "#7dd3fc" },
+  { label: "Blog", color: "#f472b6" },
+  { label: "Trading", color: "#5eead4" },
+  { label: "Research", color: "#86efac" },
 ];
 
 const SOCIAL = [
   {
     label: "GitHub",
     href: "https://github.com/VarnitOS",
+    color: "#e5e7eb",
     Icon: GitHubIcon,
   },
   {
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/varnitsahu",
+    color: "#60a5fa",
     Icon: LinkedInIcon,
   },
   {
     label: "Email",
     href: "mailto:vsahu@uwaterloo.com",
+    color: "#fbbf24",
     Icon: MailIcon,
   },
 ];
 
 export function Header() {
   return (
-    <header
-      className="pointer-events-none fixed inset-x-0 top-0 z-30 w-screen"
-      data-layer="header"
-    >
-      <div className="pointer-events-auto flex w-full items-center justify-between gap-10 px-[5vw] py-14 overflow-visible">
-        <div className="flex items-end gap-4 justify-start leading-tight overflow-visible" data-signature-container>
-          <Link
-            href="/"
-            className="inline-flex items-baseline gap-3"
-            data-signature
-          >
-            <span className="text-7xl sm:text-8xl font-['Brush_Script_MT',cursive] tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#f8fbff] via-[#eef3ff] to-[#e4faff]">
+    <header className="sticky top-0 z-30 w-screen bg-transparent" data-layer="header">
+      <div className="flex w-full items-center justify-between gap-6 px-6 py-4">
+        <div className="flex items-end gap-3 leading-tight" data-signature-container>
+          <Link href="/" className="inline-flex items-baseline gap-2" data-signature>
+            <span className="text-6xl sm:text-7xl font-['Brush_Script_MT',cursive] tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#f8fbff] via-[#eef3ff] to-[#e4faff]">
               Varnit
             </span>
-            <span className="text-5xl sm:text-6xl font-['Brush_Script_MT',cursive] tracking-tight text-[#eef2f6]">
+            <span className="text-4xl sm:text-5xl font-['Brush_Script_MT',cursive] tracking-tight text-[#eef2f6]">
               Sahu
             </span>
             <span className="align-bottom ml-1" data-domain-text>
               <FuzzyText
-                fontSize={24}
+                fontSize={22}
                 fontWeight={800}
                 color="#f7fbff"
                 enableHover={false}
@@ -68,15 +63,13 @@ export function Header() {
           </Link>
         </div>
 
-        <div className="flex items-center justify-center overflow-visible">
+        <div className="flex flex-1 items-center justify-center min-w-0">
           <BubbleMenu
-            hideLogo
-            logo={null}
             menuBg="rgba(23,25,32,0.9)"
             menuContentColor="#e6e9ee"
             useFixedPosition={false}
             items={SUIT_NAV.map((item) => ({
-              label: `${item.label}`,
+              label: item.label,
               href: "#",
               ariaLabel: item.label,
               rotation: 0,
@@ -86,18 +79,14 @@ export function Header() {
           />
         </div>
 
-        <nav
-          aria-label="Social links"
-          className="flex items-center justify-end gap-5"
-          data-social-panel
-        >
+        <nav aria-label="Social links" className="flex items-center gap-4">
           <div
             className="flex h-6 w-5 items-center justify-center text-[#f59e0b] animate-[joker-wiggle_2.4s_ease-in-out_infinite]"
             aria-hidden
           >
             <JokerIcon />
           </div>
-          {SOCIAL.map(({ label, href, Icon }) => (
+          {SOCIAL.map(({ label, href, Icon, color }) => (
             <a
               key={label}
               href={href}
@@ -105,14 +94,7 @@ export function Header() {
               rel="noreferrer"
               aria-label={label}
               className="flex h-6 w-6 items-center justify-center transition-transform focus:outline-none focus-visible:ring-2 focus-visible:ring-[#9ca3af] focus-visible:ring-offset-2 focus-visible:ring-offset-[rgba(6,10,18,0.7)]"
-              style={{
-                color:
-                  label === "GitHub"
-                    ? "#e5e7eb"
-                    : label === "LinkedIn"
-                      ? "#60a5fa"
-                      : "#fbbf24",
-              }}
+              style={{ color }}
               onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
               onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
             >
@@ -121,33 +103,6 @@ export function Header() {
           ))}
         </nav>
       </div>
-      <style jsx>{`
-        @keyframes joker-wiggle {
-          0%,
-          100% {
-            transform: translateY(0);
-          }
-          25% {
-            transform: translateY(-1px) rotate(-1deg);
-          }
-          50% {
-            transform: translateY(1px) rotate(1deg);
-          }
-          75% {
-            transform: translateY(-0.5px) rotate(-0.5deg);
-          }
-        }
-        @keyframes fade-in {
-          from {
-            opacity: 0;
-            transform: translateY(-4px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
     </header>
   );
 }
