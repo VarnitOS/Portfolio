@@ -70,7 +70,8 @@ export function Header() {
 
         <div className="flex items-center justify-center overflow-visible">
           <BubbleMenu
-            logo={<span className="text-sm font-semibold text-white/80">MENU</span>}
+            hideLogo
+            logo={null}
             menuBg="rgba(23,25,32,0.9)"
             menuContentColor="#e6e9ee"
             useFixedPosition={false}

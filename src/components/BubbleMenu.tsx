@@ -18,7 +18,7 @@ export type BubbleMenuProps = {
   onMenuClick?: (open: boolean) => void;
   className?: string;
   style?: CSSProperties;
-  menuAriaLabel?: string;
+  hideLogo?: boolean;
   menuBg?: string;
   menuContentColor?: string;
   useFixedPosition?: boolean;
@@ -71,7 +71,7 @@ export default function BubbleMenu({
   onMenuClick,
   className,
   style,
-  menuAriaLabel = 'Toggle menu',
+  hideLogo = false,
   menuBg = '#fff',
   menuContentColor = '#111',
   useFixedPosition = false,
@@ -89,11 +89,21 @@ export default function BubbleMenu({
 
   const menuItems = items?.length ? items : DEFAULT_ITEMS;
 
+  useEffect(() => {
+    const id = setTimeout(() => {
+      setShowOverlay(true);
+      setIsMenuOpen(true);
+      onMenuClick?.(true);
+    }, 2000);
+    return () => clearTimeout(id);
+  }, [onMenuClick]);
+
   const containerClassName = [
     'bubble-menu',
     useFixedPosition ? 'fixed' : 'absolute',
     'left-0 right-0 top-8',
-    'flex items-center justify-between',
+    'flex items-center',
+    hideLogo ? 'justify-center' : 'justify-between',
     'gap-4 px-8',
     'pointer-events-none',
     'z-[1001]',
@@ -101,13 +111,6 @@ export default function BubbleMenu({
   ]
     .filter(Boolean)
     .join(' ');
-
-  const handleToggle = () => {
-    const nextState = !isMenuOpen;
-    if (nextState) setShowOverlay(true);
-    setIsMenuOpen(nextState);
-    onMenuClick?.(nextState);
-  };
 
   useEffect(() => {
     const overlay = overlayRef.current;
@@ -237,78 +240,41 @@ export default function BubbleMenu({
       `}</style>
 
       <nav className={containerClassName} style={style} aria-label="Main navigation">
-        <div
-          className={[
-            'bubble logo-bubble',
-            'inline-flex items-center justify-center',
-            'rounded-full',
-            'bg-white',
-            'shadow-[0_4px_16px_rgba(0,0,0,0.12)]',
-            'pointer-events-auto',
-            'h-12 md:h-14',
-            'px-4 md:px-8',
-            'gap-2',
-            'will-change-transform'
-          ].join(' ')}
-          aria-label="Logo"
-          style={{
-            background: menuBg,
-            minHeight: '48px',
-            borderRadius: '9999px'
-          }}
-        >
-          <span
-            className={['logo-content', 'inline-flex items-center justify-center', 'w-[120px] h-full'].join(' ')}
-            style={
-              {
-                ['--logo-max-height']: '60%',
-                ['--logo-max-width']: '100%'
-              } as CSSProperties
-            }
+        {!hideLogo && (
+          <div
+            className={[
+              'bubble logo-bubble',
+              'inline-flex items-center justify-center',
+              'rounded-full',
+              'bg-white',
+              'shadow-[0_4px_16px_rgba(0,0,0,0.12)]',
+              'pointer-events-auto',
+              'h-12 md:h-14',
+              'px-4 md:px-8',
+              'gap-2',
+              'will-change-transform'
+            ].join(' ')}
+            aria-label="Logo"
+            style={{
+              background: menuBg,
+              minHeight: '48px',
+              borderRadius: '9999px'
+            }}
           >
-            {logo}
-          </span>
-        </div>
+            <span
+              className={['logo-content', 'inline-flex items-center justify-center', 'w-[120px] h-full'].join(' ')}
+              style={
+                {
+                  ['--logo-max-height']: '60%',
+                  ['--logo-max-width']: '100%'
+                } as CSSProperties
+              }
+            >
+              {logo}
+            </span>
+          </div>
+        )}
 
-        <button
-          type="button"
-          className={[
-            'bubble toggle-bubble menu-btn',
-            isMenuOpen ? 'open' : '',
-            'inline-flex flex-col items-center justify-center',
-            'rounded-full',
-            'bg-white',
-            'shadow-[0_4px_16px_rgba(0,0,0,0.12)]',
-            'pointer-events-auto',
-            'w-12 h-12 md:w-14 md:h-14',
-            'border-0 cursor-pointer p-0',
-            'will-change-transform'
-          ].join(' ')}
-          onClick={handleToggle}
-          aria-label={menuAriaLabel}
-          aria-pressed={isMenuOpen}
-          style={{ background: menuBg }}
-        >
-          <span
-            className="menu-line block mx-auto rounded-[2px]"
-            style={{
-              width: 26,
-              height: 2,
-              background: menuContentColor,
-              transform: isMenuOpen ? 'translateY(4px) rotate(45deg)' : 'none'
-            }}
-          />
-          <span
-            className="menu-line short block mx-auto rounded-[2px]"
-            style={{
-              marginTop: '6px',
-              width: 26,
-              height: 2,
-              background: menuContentColor,
-              transform: isMenuOpen ? 'translateY(-4px) rotate(-45deg)' : 'none'
-            }}
-          />
-        </button>
       </nav>
 
       {showOverlay && (
@@ -319,7 +285,7 @@ export default function BubbleMenu({
             useFixedPosition ? 'fixed' : 'absolute',
             'inset-0',
             'flex items-center justify-center',
-            'pointer-events-none',
+        'pointer-events-none',
             'z-[1000]'
           ].join(' ')}
           aria-hidden={!isMenuOpen}
