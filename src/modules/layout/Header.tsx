@@ -1,9 +1,9 @@
 "use client";
 
-import type { SVGProps } from "react";
+import { useEffect, useState } from "react";
+import BubbleMenu from "@/components/BubbleMenu";
 import FuzzyText from "@/components/FuzzyText";
 import Link from "next/link";
-import PillNav from "@/components/PillNav";
 
 type SuitNav = {
   suit: "spade" | "heart" | "diamond" | "club";
@@ -17,6 +17,22 @@ const SUIT_NAV: SuitNav[] = [
   { suit: "diamond", label: "Trading", color: "#5eead4" }, // electric teal
   { suit: "club", label: "Research", color: "#86efac" }, // soft mint
 ];
+
+const SUIT_SYMBOL: Record<SuitNav["suit"], string> = {
+  spade: "♠",
+  heart: "♥",
+  diamond: "♦",
+  club: "♣",
+};
+
+function useBubbleReveal(delayMs: number) {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const id = setTimeout(() => setVisible(true), delayMs);
+    return () => clearTimeout(id);
+  }, [delayMs]);
+  return visible;
+}
 
 const SOCIAL = [
   {
@@ -37,13 +53,15 @@ const SOCIAL = [
 ];
 
 export function Header() {
+  const bubblesVisible = useBubbleReveal(1800);
+
   return (
     <header
       className="pointer-events-none fixed inset-x-0 top-0 z-30 w-screen"
       data-layer="header"
     >
-      <div className="pointer-events-auto grid w-full grid-cols-[auto_1fr_auto] items-center gap-12 px-[5vw] py-12">
-        <div className="flex items-end gap-3 justify-start leading-tight" data-signature-container>
+      <div className="pointer-events-auto flex w-full items-center justify-between gap-10 px-[5vw] py-14 overflow-visible">
+        <div className="flex items-end gap-4 justify-start leading-tight overflow-visible" data-signature-container>
           <Link
             href="/"
             className="inline-flex items-baseline gap-3"
@@ -69,16 +87,27 @@ export function Header() {
           </Link>
         </div>
 
-        <div className="flex items-center justify-center">
-          <PillNav
-            className="text-sm"
-            items={SUIT_NAV.map((item) => ({
-              label: item.label,
-              href: "#",
-              ariaLabel: item.label,
-              icon: <SuitIcon suit={item.suit} color={item.color} />,
-            }))}
-          />
+        <div className="flex items-center justify-center overflow-visible">
+          {bubblesVisible && (
+            <BubbleMenu
+              hideToggle
+              autoOpenDelay={0}
+              disableDefaultPosition
+              positionClassName="relative"
+              className="relative w-auto items-center justify-center gap-4 px-0"
+              menuBg="rgba(20,22,30,0.92)"
+              menuContentColor="#e6e9ee"
+              useFixedPosition={false}
+              items={SUIT_NAV.map((item) => ({
+                label: `${SUIT_SYMBOL[item.suit]} ${item.label}`,
+                href: "#",
+                ariaLabel: item.label,
+                color: item.color,
+                hoverStyles: { bgColor: "rgba(255,255,255,0.12)", textColor: item.color },
+                rotation: 0,
+              }))}
+            />
+          )}
         </div>
 
         <nav
@@ -132,6 +161,16 @@ export function Header() {
             transform: translateY(-0.5px) rotate(-0.5deg);
           }
         }
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+            transform: translateY(-4px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
       `}</style>
     </header>
   );
@@ -154,36 +193,6 @@ function JokerIcon() {
       <path d="M9 10.5c1.1.6 1.7.6 2.5 0 .8-.6 1.4-.6 2.5 0" />
       <circle cx="10" cy="13.5" r=".65" />
       <circle cx="14" cy="13.5" r=".65" />
-    </svg>
-  );
-}
-
-function SuitIcon({ suit, color }: { suit: SuitNav["suit"]; color: string }) {
-  const stroke = color;
-
-  const commonProps: SVGProps<SVGPathElement> = {
-    stroke,
-    strokeWidth: 1.6,
-    fill: "none",
-    strokeLinecap: "round",
-    strokeLinejoin: "round",
-  };
-
-  const path = {
-    spade:
-      "M12 3c4.5 4.2 6.8 7 6.8 9.2 0 2-1.4 3.5-3.4 3.5-0.8 0-1.6-0.2-2.2-0.7v1.6h1.5v1.4H9.3v-1.4h1.5V15c-0.6 0.5-1.4 0.7-2.2 0.7-2 0-3.4-1.5-3.4-3.5C5.2 10 7.5 7.2 12 3Z",
-    heart:
-      "M12 20s-7-4.3-7-9.5C5 7.5 6.9 6 8.9 6c1.3 0 2.4 0.6 3.1 1.6C12.8 6.6 13.9 6 15.1 6 17.1 6 19 7.5 19 10.5 19 15.7 12 20 12 20Z",
-    diamond: "M12 3 20 12 12 21 4 12 12 3Z",
-    club: "M9 10c0-1.7 1.3-3 3-3s3 1.3 3 3c0 0.3 0 0.5-0.1 0.8 0.5-0.5 1.2-0.8 2-0.8 1.7 0 3 1.3 3 3s-1.3 3-3 3c-0.5 0-1-0.1-1.4-0.4 0.2 0.4 0.4 0.9 0.4 1.4 0 1.7-1.3 3-3 3s-3-1.3-3-3c0-0.5 0.1-1 0.4-1.4-0.4 0.3-0.9 0.4-1.4 0.4-1.7 0-3-1.3-3-3s1.3-3 3-3c0.8 0 1.5 0.3 2 0.8C9 10.5 9 10.3 9 10Z",
-  }[suit];
-
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      className="h-4 w-4"
-    >
-      <path d={path} {...commonProps} />
     </svg>
   );
 }
