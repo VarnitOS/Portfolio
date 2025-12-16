@@ -7,7 +7,6 @@ type MenuItem = {
   href: string;
   ariaLabel?: string;
   rotation?: number;
-  color?: string;
   hoverStyles?: {
     bgColor?: string;
     textColor?: string;
@@ -27,10 +26,6 @@ export type BubbleMenuProps = {
   animationEase?: string;
   animationDuration?: number;
   staggerDelay?: number;
-  autoOpenDelay?: number;
-  hideToggle?: boolean;
-  disableDefaultPosition?: boolean;
-  positionClassName?: string;
 };
 
 const DEFAULT_ITEMS: MenuItem[] = [
@@ -83,11 +78,7 @@ export default function BubbleMenu({
   items,
   animationEase = 'back.out(1.5)',
   animationDuration = 0.5,
-  staggerDelay = 0.12,
-  autoOpenDelay,
-  hideToggle = false,
-  disableDefaultPosition = false,
-  positionClassName
+  staggerDelay = 0.12
 }: BubbleMenuProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showOverlay, setShowOverlay] = useState(false);
@@ -98,12 +89,10 @@ export default function BubbleMenu({
 
   const menuItems = items?.length ? items : DEFAULT_ITEMS;
 
-  const positionClass = positionClassName ?? (useFixedPosition ? 'fixed' : 'absolute');
-  const basePosition = disableDefaultPosition ? [] : [positionClass, 'left-0', 'right-0', 'top-8'];
-
   const containerClassName = [
     'bubble-menu',
-    ...basePosition,
+    useFixedPosition ? 'fixed' : 'absolute',
+    'left-0 right-0 top-8',
     'flex items-center justify-between',
     'gap-4 px-8',
     'pointer-events-none',
@@ -119,16 +108,6 @@ export default function BubbleMenu({
     setIsMenuOpen(nextState);
     onMenuClick?.(nextState);
   };
-
-  useEffect(() => {
-    if (autoOpenDelay == null) return;
-    const id = setTimeout(() => {
-      setShowOverlay(true);
-      setIsMenuOpen(true);
-      onMenuClick?.(true);
-    }, autoOpenDelay);
-    return () => clearTimeout(id);
-  }, [autoOpenDelay, onMenuClick]);
 
   useEffect(() => {
     const overlay = overlayRef.current;
@@ -291,47 +270,45 @@ export default function BubbleMenu({
           </span>
         </div>
 
-        {!hideToggle && (
-          <button
-            type="button"
-            className={[
-              'bubble toggle-bubble menu-btn',
-              isMenuOpen ? 'open' : '',
-              'inline-flex flex-col items-center justify-center',
-              'rounded-full',
-              'bg-white',
-              'shadow-[0_4px_16px_rgba(0,0,0,0.12)]',
-              'pointer-events-auto',
-              'w-12 h-12 md:w-14 md:h-14',
-              'border-0 cursor-pointer p-0',
-              'will-change-transform'
-            ].join(' ')}
-            onClick={handleToggle}
-            aria-label={menuAriaLabel}
-            aria-pressed={isMenuOpen}
-            style={{ background: menuBg }}
-          >
-            <span
-              className="menu-line block mx-auto rounded-[2px]"
-              style={{
-                width: 26,
-                height: 2,
-                background: menuContentColor,
-                transform: isMenuOpen ? 'translateY(4px) rotate(45deg)' : 'none'
-              }}
-            />
-            <span
-              className="menu-line short block mx-auto rounded-[2px]"
-              style={{
-                marginTop: '6px',
-                width: 26,
-                height: 2,
-                background: menuContentColor,
-                transform: isMenuOpen ? 'translateY(-4px) rotate(-45deg)' : 'none'
-              }}
-            />
-          </button>
-        )}
+        <button
+          type="button"
+          className={[
+            'bubble toggle-bubble menu-btn',
+            isMenuOpen ? 'open' : '',
+            'inline-flex flex-col items-center justify-center',
+            'rounded-full',
+            'bg-white',
+            'shadow-[0_4px_16px_rgba(0,0,0,0.12)]',
+            'pointer-events-auto',
+            'w-12 h-12 md:w-14 md:h-14',
+            'border-0 cursor-pointer p-0',
+            'will-change-transform'
+          ].join(' ')}
+          onClick={handleToggle}
+          aria-label={menuAriaLabel}
+          aria-pressed={isMenuOpen}
+          style={{ background: menuBg }}
+        >
+          <span
+            className="menu-line block mx-auto rounded-[2px]"
+            style={{
+              width: 26,
+              height: 2,
+              background: menuContentColor,
+              transform: isMenuOpen ? 'translateY(4px) rotate(45deg)' : 'none'
+            }}
+          />
+          <span
+            className="menu-line short block mx-auto rounded-[2px]"
+            style={{
+              marginTop: '6px',
+              width: 26,
+              height: 2,
+              background: menuContentColor,
+              transform: isMenuOpen ? 'translateY(-4px) rotate(-45deg)' : 'none'
+            }}
+          />
+        </button>
       </nav>
 
       {showOverlay && (
@@ -392,9 +369,9 @@ export default function BubbleMenu({
                     {
                       ['--item-rot']: `${item.rotation ?? 0}deg`,
                       ['--pill-bg']: menuBg,
-                      ['--pill-color']: item.color || menuContentColor,
+                      ['--pill-color']: menuContentColor,
                       ['--hover-bg']: item.hoverStyles?.bgColor || '#f3f4f6',
-                      ['--hover-color']: item.hoverStyles?.textColor || item.color || menuContentColor,
+                      ['--hover-color']: item.hoverStyles?.textColor || menuContentColor,
                       background: 'var(--pill-bg)',
                       color: 'var(--pill-color)',
                       minHeight: 'var(--pill-min-h, 160px)',

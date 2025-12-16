@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import BubbleMenu from "@/components/BubbleMenu";
 import FuzzyText from "@/components/FuzzyText";
 import Link from "next/link";
@@ -17,22 +16,6 @@ const SUIT_NAV: SuitNav[] = [
   { suit: "diamond", label: "Trading", color: "#5eead4" }, // electric teal
   { suit: "club", label: "Research", color: "#86efac" }, // soft mint
 ];
-
-const SUIT_SYMBOL: Record<SuitNav["suit"], string> = {
-  spade: "♠",
-  heart: "♥",
-  diamond: "♦",
-  club: "♣",
-};
-
-function useBubbleReveal(delayMs: number) {
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const id = setTimeout(() => setVisible(true), delayMs);
-    return () => clearTimeout(id);
-  }, [delayMs]);
-  return visible;
-}
 
 const SOCIAL = [
   {
@@ -53,8 +36,6 @@ const SOCIAL = [
 ];
 
 export function Header() {
-  const bubblesVisible = useBubbleReveal(1800);
-
   return (
     <header
       className="pointer-events-none fixed inset-x-0 top-0 z-30 w-screen"
@@ -88,26 +69,20 @@ export function Header() {
         </div>
 
         <div className="flex items-center justify-center overflow-visible">
-          {bubblesVisible && (
-            <BubbleMenu
-              hideToggle
-              autoOpenDelay={0}
-              disableDefaultPosition
-              positionClassName="relative"
-              className="relative w-auto items-center justify-center gap-4 px-0"
-              menuBg="rgba(20,22,30,0.92)"
-              menuContentColor="#e6e9ee"
-              useFixedPosition={false}
-              items={SUIT_NAV.map((item) => ({
-                label: `${SUIT_SYMBOL[item.suit]} ${item.label}`,
-                href: "#",
-                ariaLabel: item.label,
-                color: item.color,
-                hoverStyles: { bgColor: "rgba(255,255,255,0.12)", textColor: item.color },
-                rotation: 0,
-              }))}
-            />
-          )}
+          <BubbleMenu
+            logo={<span className="text-sm font-semibold text-white/80">MENU</span>}
+            menuBg="rgba(23,25,32,0.9)"
+            menuContentColor="#e6e9ee"
+            useFixedPosition={false}
+            items={SUIT_NAV.map((item) => ({
+              label: `${item.label}`,
+              href: "#",
+              ariaLabel: item.label,
+              rotation: 0,
+              hoverStyles: { bgColor: item.color, textColor: "#0f1116" },
+            }))}
+            className="relative pointer-events-auto"
+          />
         </div>
 
         <nav
