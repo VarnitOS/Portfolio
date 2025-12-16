@@ -1,0 +1,19 @@
+      <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center">
+        <ModelViewer
+          url="/models/car.glb"
+          environmentPreset="city"
+          width={500}
+          height={500}
+          showScreenshotButton={false}
+          autoFrame={false}
+          defaultZoom={4}
+          minZoomDistance={5}
+          maxZoomDistance={3}
+          defaultRotationX={120}
+          fadeIn={true}
+          enableMouseParallax={true}
+          enableManualRotation={true}
+          enableHoverRotation={true}
+          enableManualZoom={true}
+        />
+      </div>
