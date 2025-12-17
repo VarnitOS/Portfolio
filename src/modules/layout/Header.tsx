@@ -40,22 +40,21 @@ const SOCIAL = [
 export function Header() {
   return (
     <header className="sticky top-0 z-30 w-screen bg-transparent" data-layer="header">
-      <div className="flex w-full items-center justify-between gap-4 px-6 py-4">
+      <div className="flex w-full items-center justify-start gap-4 px-6 py-4">
         <div className="flex flex-none items-end gap-2 leading-tight" data-signature-container>
-          <Link href="/" className="inline-flex items-baseline gap-2" data-signature>
+          <Link href="/" className="inline-flex items-baseline gap-0" data-signature>
             <span className="text-6xl sm:text-7xl font-['Brush_Script_MT',cursive] tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#f8fbff] via-[#eef3ff] to-[#e4faff]">
               Varnit Sahu
             </span>
-            <span className="align-bottom ml-1" data-domain-text>
+            <span className="align-bottom ml-0" data-domain-text>
               <FuzzyText
                 fontSize={29}
                 fontWeight={800}
                 color="#f7fbff"
                 enableHover={true}
-                baseIntensity={0.18}
+                baseIntensity={0.13}
                 hoverIntensity={0.5}
                 fontFamily="signature"
-                
               >
                 .com
               </FuzzyText>
@@ -63,7 +62,7 @@ export function Header() {
           </Link>
         </div>
 
-        <div className="flex flex-1 items-center justify-center min-w-[420px] max-w-[70vw] px-2">
+        <div className="flex flex-1 min-w-0 items-center justify-start px-2">
           <BubbleMenu
             menuBg="rgba(23,25,32,0.9)"
             menuContentColor="#e6e9ee"
@@ -79,7 +78,7 @@ export function Header() {
           />
         </div>
 
-        <nav aria-label="Social links" className="flex items-center gap-4">
+        <nav aria-label="Social links" className="flex flex-none items-center gap-4 ml-auto">
           <div
             className="flex h-6 w-5 items-center justify-center text-[#f59e0b] animate-[joker-wiggle_2.4s_ease-in-out_infinite]"
             aria-hidden
