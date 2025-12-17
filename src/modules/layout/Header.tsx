@@ -2,6 +2,7 @@
 
 import BubbleMenu from "@/components/BubbleMenu";
 import FuzzyText from "@/components/FuzzyText";
+import ModelViewer from "@/components/ModelViewer";
 import Link from "next/link";
 
 type SuitNav = {
@@ -77,7 +78,25 @@ export function Header() {
             className="relative pointer-events-auto"
           />
         </div>
-
+        <div className="pointer-events-none inset-0 z-10 flex items-center justify-center">
+        <ModelViewer
+          url="/models/car.glb"
+          environmentPreset="city"
+          width={500}
+          height={500}
+          showScreenshotButton={false}
+          autoFrame={false}
+          defaultZoom={4}
+          minZoomDistance={5}
+          maxZoomDistance={3}
+          defaultRotationX={120}
+          fadeIn={true}
+          enableMouseParallax={true}
+          enableManualRotation={true}
+          enableHoverRotation={true}
+          enableManualZoom={true}
+        />
+        </div>
         <nav aria-label="Social links" className="flex flex-none items-center gap-4 ml-auto">
           <div
             className="flex h-6 w-5 items-center justify-center text-[#f59e0b] animate-[joker-wiggle_2.4s_ease-in-out_infinite]"
